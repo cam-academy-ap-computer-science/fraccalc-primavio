@@ -20,60 +20,106 @@ public class FracCalc {
 	public static void main(String[] args) 
 	{
 		// TODO: Read the input from the user and call produceAnswer with an equation
-		Scanner userInput = new Scanner(System.in);
-		System.out.println("");
-		String equation = userInput.nextLine();
-		while (!equation.contentEquals("quit")) {
-			String secondOperand = produceAnswer(equation);
-			System.out.println("" + secondOperand);
-			equation = userInput.nextLine();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter equation: ");
+		String userInput = sc.nextLine();
+		while (!userInput.equalsIgnoreCase("quit")){
+			System.out.println(produceAnswer(userInput));
+			System.out.print("Enter equation: ");
+			userInput = sc.nextLine();
 		}
-		System.out.println("");
-		
 	}
+	
 
 
 	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
 	// This function takes a String 'input' and produces the result
 	//
 	// input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
-	//      e.g. input ==> "1/2 + 3/4"
+	//      e.g. input ==> 
 	//        
 	// The function should return the result of the fraction after it has been calculated
 	//      e.g. return ==> "1_1/4"
-	public static String produceAnswer(String input)
-	{ 
-		// TODO: Implement this function to produce the solution to the input
-
-		// get input from user
-		/* have a String produceAnswer(String input)
-			*main method to have a scanner with user input
-			*		method reads one line of input and passes that into produceAnswer
-			*		produce answer breaks that into 3 new strings: first operand (fraction), operator[+-/*] and
-			*		second operand (fraction)
-			*		produceAnswer should return the second operand
-			*		main will print result in produceAnswer
-			*		checkpoint1
-			*
-			* Checkpoint 2:  produceAnswer returns string with "whole: X numerator:Y denominator:Z"
-			*   Take each operand and break it into substrings for whole,num, denom - based upon '_' '\'
-			*       if '/' exists, use .indexOf, substring
-			*       getOperWhole, getOperFrac, getOperNumer, getOperDenom  
-			*       
-		*/
+	public static String produceAnswer(String input) {
+		String temp = input;
+		String operand1 = temp.substring(0, temp.indexOf(' '));
+		temp = temp.substring(temp.indexOf(' ') + 1);
+		String operator = temp.substring(0, temp.indexOf(' ')); 
+		temp = temp.substring(temp.indexOf(' ') + 1);
+		String operand2 = temp;
 		
 		
+		String oper2WholeComp = findWhole(operand2);
+		String oper2Num = findNum(operand2);
+		String oper2Denom = findDenom(operand2);
 		
+		String oper1WholeComp = findWhole(operand1);
+		String oper1Num = findNum(operand1);
+		String oper1Denom = findDenom(operand1);
 		
-		
-		int firstSpace = input.indexOf(' ');
-		String firstOperand = input.substring(0, firstSpace);
-		int secondSpace = input.lastIndexOf(' ');
-		String secondOperand = input.substring(secondSpace+1, input.length());
-		String operator = input.substring(firstSpace+1, secondSpace);
-		return secondOperand;
+		String chckPnt2Ans =  "whole:" + oper2WholeComp + " numerator:" + oper2Num +
+				" denominator:" + oper2Denom + "\n" + "whole:" + oper1WholeComp + " numerator:" + oper1Num +
+				" denominator:" + oper1Denom;
+		return chckPnt2Ans;
 	}
 
+	public static String findWhole (String s) {
+		// if mixed number (3_4/5) contains '_' then-
+		if(s.contains("_")) {
+			return s.substring(0, s.indexOf('_'));
+		}
+		// if plain fraction (3/7) will contain "/" then-
+		else if(s.contains("/")) {
+			return "0";
+		}
+		else return s;
+	}
+		
+	
+	public static String findNum(String s) {
+		//if '_' is present then from "_" to "/" is numerator
+		if(s.contains("_")) {
+			return s.substring(s.indexOf('_') + 1, s.indexOf('/'));
+		}
+		//if no '_' then move on to '/'
+		else if(s.contains("/")) {
+			return s.substring(0, s.indexOf('/'));
+		}
+		//if no num return 0
+		else {
+			return "0";
+		}
+	}
+	
+	public static String findDenom (String s) {
+		//if '/' is present then number following is denominator
+		if(s.contains("/")) {
+			return s.substring(s.indexOf("/") + 1);
+		}
+		//if no denom return 1
+		else {
+			return "1";
+		}
+	}
+
+	// get input from user
+	/* have a String produceAnswer(String input)
+		*main method to have a scanner with user input
+		*		method reads one line of input and passes that into produceAnswer
+		*		produce answer breaks that into 3 new strings: first operand (fraction), operator[+-/*] and
+		*		second operand (fraction)
+		*		produceAnswer should return the second operand
+		*		main will print result in produceAnswer
+		*		checkpoint1
+		*
+		* Checkpoint 2:  produceAnswer returns string with "whole: X numerator:Y denominator:Z"
+		*   Take each operand and break it into substrings for whole,num, denom - based upon '_' '\'
+		*       if '/' exists, use .indexOf, substring
+		*       getOperWhole, getOperFrac, getOperNumer, getOperDenom  
+		*       
+	*/
+	
+	
 	//make a sentinel loop until user types quit
 	//main will call produceAnswer
 	//both of the operands break into three variables (numerator, denominator, whole number)
@@ -83,7 +129,5 @@ public class FracCalc {
 	 * if '/' then the numbers in front are numerator and behind are denominator
 	 * if no whole number it will return whole: 0
 	 */
-
-	
 
 }
