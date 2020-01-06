@@ -130,4 +130,31 @@ public class FracCalc {
 	 * if no whole number it will return whole: 0
 	 */
 
+	/*   turn String into integer
+    value of?
+  ADDITION(check if operator.equals("+"))
+    multiply denominator * whole + numerator --> numerator;
+    if the denominator is not the same
+      multiply denominator1 and denominator2
+      numerator2 * denominator1
+      numerator1 * denominator2
+    add the numerators together/denominators together
+  SUBTRACTION (check if operator.equals("-"))
+    multiply denominator * whole + numerator --> numerator;
+    if the denominator is not the same
+      multiply denominator1 and denominator2
+      numerator2 * denominator1
+      numerator1 * denominator2
+    subtract the numerators together/denominators together
+  MUTLIPLICATION (check if operator.equals("*"))
+    multiply denominator * whole + numerator --> numerator;
+    multiply the numerators together and denominators together
+    if one of them is negative
+      the result is negative
+  DIVISION (check if operator.equals("/"))
+    multiply denominator * whole + numerator --> numerator;
+    switch the numerator with denominator of the second fraction
+    multiply the numerators together and denominators together
+    if one of them is negative
+      the result is negative*/
 }
