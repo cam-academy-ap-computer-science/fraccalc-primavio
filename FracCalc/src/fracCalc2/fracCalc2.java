@@ -1,11 +1,9 @@
-package fracCalc;
-
-
+package fracCalc2;
 import java.util.*;
 
-public class fracCalc {
-
-	public static void main(String[] args) 
+public class fracCalc2 {
+ 
+    public static void main(String[] args)
     {
         int exit = 0;
         Scanner in = new Scanner(System.in);
@@ -138,7 +136,7 @@ public class fracCalc {
             operator = input.indexOf(dividePlace);
         }
        
-        return "whole:" + whole2 + " numerator:"  + numerator2 + " denominator:" + denominator2 + " operand1: " + operand1 + " operand2: " + operand2 + "\n" + " whole:" + whole1 + " numerator:"  + numerator1 + " denominator:" + denominator1;
+        return "whole:" + whole2 + " numerator:"  + numerator2 + " denominator:" + denominator2 + " operand1: " + operand1 + " operand2: " + operand2 + "\n" + "whole:" + whole1 + " numerator:"  + numerator1 + " denominator:" + denominator1;
         // TODO: Implement this function to produce the solution to the input
     }
     // TODO: Fill in the space below with any helper methods that you think you will need

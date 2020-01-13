@@ -1,125 +1,71 @@
-/* have a String produceAnswer(String input)
-main method to have a scanner with user input
-method reads one line of input and passes that into produceAnswer
-produce answer breaks that into 3 new strings: first operand (fraction), operator[+-/*] and
-second operand (fraction)
-produceAnswer should return the second operand
-main will print result in produceAnswer
-
-
-*/
-// get input from user
-	/* have a String produceAnswer(String input)
-		*main method to have a scanner with user input
-		*		method reads one line of input and passes that into produceAnswer
-		*		produce answer breaks that into 3 new strings: first operand (fraction), operator[+-/*] and
-		*		second operand (fraction)
-		*		produceAnswer should return the second operand
-		*		main will print result in produceAnswer
-		*		checkpoint1
-		*
-		* Checkpoint 2:  produceAnswer returns string with "whole: X numerator:Y denominator:Z"
-		*   Take each operand and break it into substrings for whole,num, denom - based upon '_' '\'
-		*       if '/' exists, use .indexOf, substring
-		*       getOperWhole, getOperFrac, getOperNumer, getOperDenom  
-		*       
-	*/
-	//make a sentinel loop until user types quit
-	//main will call produceAnswer
-	//both of the operands break into three variables (numerator, denominator, whole number)
-	//produceAnswer() should return"whole:x numerator:y denominator:z"
-	/* split fraction into 3 parts using if tests- if there is '_' behind= whole number; if no '/' then it is a whole
-	 * if there is no fraction then numerator is 0 and denominator is 1
-	 * if '/' then the numbers in front are numerator and behind are denominator
-	 * if no whole number it will return whole: 0
-	 */
-
-//chk pnt 3
-
-	/*   turn String into integer
-    value of?
-  ADDITION(check if operator.equals("+"))
-    multiply denominator * whole + numerator --> numerator;
-    if the denominator is not the same
-      multiply denominator1 and denominator2
-      numerator2 * denominator1
-      numerator1 * denominator2
-    add the numerators together/denominators together
-  SUBTRACTION (check if operator.equals("-"))
-    multiply denominator * whole + numerator --> numerator;
-    if the denominator is not the same
-      multiply denominator1 and denominator2
-      numerator2 * denominator1
-      numerator1 * denominator2
-    subtract the numerators together/denominators together
-  MUTLIPLICATION (check if operator.equals("*"))
-    multiply denominator * whole + numerator --> numerator;
-    multiply the numerators together and denominators together
-    if one of them is negative
-      the result is negative
-  DIVISION (check if operator.equals("/"))
-    multiply denominator * whole + numerator --> numerator;
-    switch the numerator with denominator of the second fraction
-    multiply the numerators together and denominators together
-    if one of them is negative
-      the result is negative*/
-
-package fracCalc;
+package fracCalc3;
 import java.util.*;
 public class FracCalc {
 
 	public static void main(String[] args) 
 	{
 		Scanner console = new Scanner(System.in);
-		System.out.print("Please enter your equation (type quit to quit): ");
+		System.out.print("Please enter your equation (quit to quit): ");
 		String equation = console.nextLine();
 	
 
-		while (!equation.equalsIgnoreCase("quit")){
+		while (!equation.toLowerCase().equals("quit")){
 			checkFrac(equation);
 			equation = console.nextLine();
 			
 		}
 		}
-	/*
-	 *method takes the user's input and determines whether they are integers, mixed fractions, fractions, or invalid
+	/**
+	 * This method takes the user's input and determines whether they are integers, mixed fractions, fractions, or invalid
 	 * 	then moving to the next method accordingly
+	 * @param equation
+	 * @return
 	 */
 public static String checkFrac(String equation){
 
 	if(equation.length() < 5){
 		System.out.println("Invalid Expression\n");
-		System.out.print("Please enter your equation with spaces between fractions and operator \n(Ex: 2_1/3 + 4_3/4) \nor (type quit to quit): ");
+		System.out.print("Please enter your equation (type quit to quit): ");
 		return null;
-	
+	}
+	else if(equation.indexOf(" ") < 1){
+		System.out.println("Invalid Expression");
+		System.out.println("Please use spaces between fractions and operator");
+		System.out.println("(Ex: 2_1/3 + 4_3/4)");
+		System.out.print("Please enter your equation (type quit to quit): ");
+		return null;
 	}
 	else if(!equation.contains("/") && !equation.contains("_")){
 	String lNum = equation.substring(0, equation.indexOf(" ")); // First Number
 	String operator = equation.substring(equation.indexOf(" ") + 1, equation.indexOf(" ") + 2); // Operator
 	String rNum = equation.substring(equation.indexOf(" ") + 3, equation.length()); // Second Number
-	int operand1 = Integer.parseInt(lNum); 
-	int operand2 = Integer.parseInt(rNum); 
-	calcInt(operand1, operand2, operator);  
-	System.out.print("Please enter your equation (type quit to quit): ");
+	int operand1 = Integer.parseInt(lNum); // Parses First Number into integer
+	int operand2 = Integer.parseInt(rNum); // Parses Second Number into integer
+	calcInt(operand1, operand2, operator); // Calculates Equation
+	System.out.print("Please enter your equation (quit to quit): ");
 	return null;	
 	}
 	else if(equation.contains("_")){ 
 		String operator = equation.substring(equation.indexOf(" ") + 1, equation.indexOf(" ") + 2);
 		toFracNumber(equation);
-		System.out.print("Please enter your equation (type quit to quit): ");
+		System.out.print("Please enter your equation (quit to quit): ");
 		return null;
 	}
 	else if(!equation.contains("_") && equation.contains("/") );{
 		toFracNumber(equation);
-		System.out.print("Please enter your equation (type quit to quit): ");
+		System.out.print("Please enter your equation (quit to quit): ");
 		return null;
 	}
 }
 			
 	
-/*
- * method calculates if the inputs are integers
+/**
+ * This method calculates if the inputs are integers
  * 	then printing out the resultant
+ * @param operand1
+ * @param operand2
+ * @param operator
+ * @return
  */
 public static String calcInt(int operand1, int operand2, String operator){ // Calculates Integers
 	if (operator.equals("+")){ 
@@ -152,9 +98,11 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 	} 
 
 
-/*
- * method takes mixed numbers and turns them into improper fractions
+/**
+ * This method takes mixed numbers and turns them into improper fractions
  *  then moving down to the calculateFrac method
+ * @param equation
+ * @return
  */
 	public static String toFracNumber(String equation)
 	{
@@ -166,13 +114,13 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 		String equation2 = "placeholder";
 		if(frac1.contains("_") && frac2.contains("_"))
 		{
-			String mixedFrac1 = frac1.substring(0, frac1.indexOf("_"));
+			String mixed1 = frac1.substring(0, frac1.indexOf("_"));
 			String num1 = frac1.substring(frac1.indexOf("_") + 1, frac1.indexOf("/"));
 			String den1 = frac1.substring(frac1.indexOf("/") + 1, frac1.length());
 			String mixed2 = frac2.substring(0, frac2.indexOf("_"));
 			String num2 = frac2.substring(frac2.indexOf("_") + 1, frac2.indexOf("/"));
 			String den2 = frac2.substring(frac2.indexOf("/") + 1, frac2.length());
-			int mixedNumber1 = Integer.parseInt(mixedFrac1); // Parses Mixed Number
+			int mixedNumber1 = Integer.parseInt(mixed1); // Parses Mixed Number
 			int numerator1 = Integer.parseInt(num1); // Parses Numerator
 			int denominator1 = Integer.parseInt(den1); // Parses Denominator
 			int impNum1 = (mixedNumber1 * denominator1) + numerator1;
@@ -190,12 +138,12 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 			}
 		else if(frac1.contains("_") && !frac2.contains("_"))
 		{
-			String mixedFrac1 = frac1.substring(0, frac1.indexOf("_"));
+			String mixed1 = frac1.substring(0, frac1.indexOf("_"));
 			String num1 = frac1.substring(frac1.indexOf("_") + 1, frac1.indexOf("/"));
 			String den1 = frac1.substring(frac1.indexOf("/") + 1, frac1.length());
-			int mixedNumber1 = Integer.parseInt(mixedFrac1); 
-			int numerator1 = Integer.parseInt(num1); 
-			int denominator1 = Integer.parseInt(den1); 
+			int mixedNumber1 = Integer.parseInt(mixed1); // Parses Mixed Number
+			int numerator1 = Integer.parseInt(num1); // Parses Numerator
+			int denominator1 = Integer.parseInt(den1); // Parses Denominator
 			int impNum1 = (mixedNumber1 * denominator1) + numerator1;
 			//FracNumber fracNum2 = new FracNumber(impNum2, denominator2);
 			// System.out.print(fracNum2);
@@ -209,9 +157,9 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 			String mixed2 = frac2.substring(0, frac2.indexOf("_"));
 			String num2 = frac2.substring(frac2.indexOf("_") + 1, frac2.indexOf("/"));
 			String den2 = frac2.substring(frac2.indexOf("/") + 1, frac2.length());
-			int mixedNumber2 = Integer.parseInt(mixed2);
-			int numerator2 = Integer.parseInt(num2); 
-			int denominator2 = Integer.parseInt(den2); 
+			int mixedNumber2 = Integer.parseInt(mixed2); // Parses Mixed Number
+			int numerator2 = Integer.parseInt(num2); // Parses Numerator
+			int denominator2 = Integer.parseInt(den2); // Parses Denominator
 			int impNum2 = (mixedNumber2 * denominator2) + numerator2;
 			//FracNumber fracNum2 = new FracNumber(impNum2, denominator2);
 			// System.out.print(fracNum2);
@@ -241,9 +189,12 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 	//
 	
 	
-	/*
-	 * method takes and calculates the improper/regular fractions
+	/**
+	 * This method takes and calculates the improper/regular fractions
 	 * 	then moving to the simpFrac method
+	 * @param operator
+	 * @param equation2
+	 * @return
 	 */
 	public static String calculateFrac(String operator, String equation2)
 	{ 
@@ -255,10 +206,10 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 				String den1 = frac1.substring(frac1.indexOf("/") + 1, frac1.length());
 				String num2 = frac2.substring(0,frac2.indexOf("/"));
 				String den2 = frac2.substring(frac2.indexOf("/") + 1, frac2.length());
-				int numerator1 = Integer.parseInt(num1); 
-				int denominator1 = Integer.parseInt(den1);
-				int numerator2 = Integer.parseInt(num2); 
-				int denominator2 = Integer.parseInt(den2); 
+				int numerator1 = Integer.parseInt(num1); // Parses Numerator
+				int denominator1 = Integer.parseInt(den1); // Parses Denominator
+				int numerator2 = Integer.parseInt(num2); // Parses Numerator
+				int denominator2 = Integer.parseInt(den2); // Parses Denominator
 				if(operator.equals("+"))
 					{ 
 						int numerator3 = (numerator1 * denominator2) + (numerator2 * denominator1);
@@ -293,9 +244,9 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 				String num1 = frac1.substring(0,frac1.length());
 				String num2 = frac2.substring(0,frac2.indexOf("/"));
 				String den2 = frac2.substring(frac2.indexOf("/") + 1, frac2.length());
-				int numerator1 = Integer.parseInt(num1); 
-				int numerator2 = Integer.parseInt(num2); 
-				int denominator2 = Integer.parseInt(den2); 
+				int numerator1 = Integer.parseInt(num1); // Parses Numerator
+				int numerator2 = Integer.parseInt(num2); // Parses Numerator
+				int denominator2 = Integer.parseInt(den2); // Parses Denominator
 				int denominator1 = 1; // whole number same denominator and numerator
 				if(operator.equals("+"))
 					{ 
@@ -332,9 +283,9 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 				String num1 = frac1.substring(0,frac1.indexOf("/"));
 				String den1 = frac1.substring(frac1.indexOf("/") + 1, frac1.length());
 				String num2 = frac2.substring(0, frac2.length());
-				int numerator1 = Integer.parseInt(num1); 
-				int denominator1 = Integer.parseInt(den1); 
-				int numerator2 = Integer.parseInt(num2); 
+				int numerator1 = Integer.parseInt(num1); // Parses Numerator
+				int denominator1 = Integer.parseInt(den1); // Parses Denominator
+				int numerator2 = Integer.parseInt(num2); // Parses Numerator
 				int denominator2 = 1; 
 				if(operator.equals("+"))
 					{ 
@@ -376,15 +327,18 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 	}
 	
 	
-	/*
+	/**
 	 * This method takes the simplified calculated fraction and turns it into a mixed number if needed
 	 * 	then printing out the resultant
+	 * @param frac4
+	 * @param operator
+	 * @return
 	 */
-	public static String intoMixNumber(String frac4, String operator){
+	public static String toMixNumber(String frac4, String operator){
 		String num4 = frac4.substring(0, frac4.indexOf("/"));
 		String den4 = frac4.substring(frac4.indexOf("/") + 1, frac4.length());
-		int numerator4 = Integer.parseInt(num4);
-		int denominator4 = Integer.parseInt(den4);
+		int numerator4 = Integer.parseInt(num4); // Parses Numerator
+		int denominator4 = Integer.parseInt(den4); // Parses Denominator
 		int numerator5 = numerator4 % denominator4;
 		int denominator5 = denominator4;
 		int mixed2 = (numerator4 - numerator5) / denominator4;
@@ -404,15 +358,18 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 		return null;
 	}
 	
-	/*
-	 * method takes the calculated fraction and simplifies it 
+	/**
+	 * This method takes the calculated fraction and simplifies it 
 	 * 	then moving to the toMixNumber method
+	 * @param frac3
+	 * @param operator
+	 * @return
 	 */
 	public static String simpFrac(String frac3, String operator){
 		String num3 = frac3.substring(0, frac3.indexOf("/"));
 		String den3 = frac3.substring(frac3.indexOf("/") + 1, frac3.length());
-		int numerator3 = Integer.parseInt(num3); // Parses num
-		int denominator3 = Integer.parseInt(den3); // Parses denom
+		int numerator3 = Integer.parseInt(num3); // Parses Numerator
+		int denominator3 = Integer.parseInt(den3); // Parses Denominator
 		int temp1 = numerator3;
 	    int temp2 = denominator3; 
 	    if(!(numerator3 == 0) && !(denominator3 == 0)){
@@ -427,7 +384,7 @@ public static String calcInt(int operand1, int operand2, String operator){ // Ca
 	      int n3 = temp1 / numerator3 ;
 	      int n4 = temp2 / numerator3 ;
 	      String frac4 = n3 + "/" + n4;
-	      intoMixNumber(frac4, operator);
+	      toMixNumber(frac4, operator);
 	    }
 	    else if(numerator3 == 0 && denominator3 != 0){
 	    	System.out.print("0\n");
